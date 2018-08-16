@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="Goods" id="goodsResult">
+		<id column="GoodsId" property="gId" javaType="int" />
+		<result column="GoodsName" property="gName" jdbcType="VARCHAR" />
+		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE" />
+		<result column="GoodsDescribe" property="gDescribe" jdbcType="VARCHAR" />
+		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR" />
+		<result column="All_id" property="all_id" javaType="int" />
+	</resultMap>
+
+	<select id="find8Goods" resultMap="goodsResult" >
+		select * from Goods order by rand() limit 8;
+	</select>
+
+	<select id="find5Goods" resultMap="goodsResult" >
+		select * from Goods order by rand() limit 5;
+	</select>
+
+	<select id="findGoodsById" resultMap="goodsResult" >
+		select * from Goods where GoodsId = #{GoodsId};
+	</select>
+
+	<!--根据All_id查找到他的同类商品-->
+	<select id="findGoodsByAll_id" resultMap="goodsResult" >
+		select * from Goods where All_id = #{All_id} limit 0,6;
+	</select>
+
+</mapper>

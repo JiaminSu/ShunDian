@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.CommentMapper">
+	<resultMap type="Comments" id="commentsResult">
+		<id column="cId" property="cId" javaType="int"></id>
+		<result column="goods_id" property="goods_id" javaType="int"></result>
+		<result column="user_id" property="user_id" javaType="int"></result>
+		<result column="content" property="content" jdbcType="VARCHAR"></result>
+	</resultMap>
+	<insert id="addComment" >
+		INSERT  INTO  Comment(goods_id,user_id,content) VALUES(#{0},#{1},#{2})
+	</insert>
+	<select id="findGoods_id"  resultType="Integer">
+		SELECT cId FROM Comment where  goods_id=#{0} and user_id=#{1}
+	</select>
+	<select id="pinglun" resultMap="commentsResult" >
+		select * from Comment limit #{page},20;
+	</select>
+	<delete id="PLdelete" parameterType="Integer">
+		DELETE  from Comment WHERE cId=#{cId} ;
+	</delete>
+</mapper>

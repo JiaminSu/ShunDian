@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GalleryMapper">
+
+	<resultMap type="GoodsType" id="typeResult">
+		<id column="aId" property="aId" javaType="int" />
+		<result column="aName" property="aName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" javaType="int" />
+		<result column="type" property="type" javaType="int" />
+	</resultMap>
+	 <select id="Judge" parameterType="int" resultType="int">
+        select type from allGoodsType where  aId = #{all_id};
+    </select>
+
+	<select id="AllYiJi" parameterType="int" resultMap="typeResult">
+		select * from allGoodsType where parent_id= 0 and aId != #{id};
+	</select>
+	<select id="AllErJi" parameterType="int" resultMap="typeResult">
+		select * from allGoodsType where parent_id= #{0} and aId != #{1};
+	</select>
+	<select id="AllSanJi" parameterType="int" resultMap="typeResult">
+		select * from allGoodsType where parent_id= #{0} and aId != #{1};
+	</select>
+
+    <select id="findsan1" parameterType="int" resultType="String">
+        select aName from allGoodsType where parent_id=#{all_id};
+    </select>
+
+    <select id="finder1" parameterType="int" resultType="String">
+        select aName from allGoodsType where parent_id=#{all_id};
+    </select>
+	<select id="finder2" parameterType="int" resultType="int">
+		select aId from allGoodsType where parent_id=#{all_id};
+	</select>
+
+
+	<select id="chazhao1" parameterType="int"  resultMap="typeResult">
+		select * from allGoodsType where aId= #{all_id};
+	</select>
+
+	<select id="chazhao2" parameterType="int" resultType="int">
+		select parent_id from allGoodsType where aId = #{all_id} ;
+	</select>
+
+	<select id="chazhao3"  resultMap="typeResult">
+		select * from allGoodsType where aId = #{0}  or aId = #{1} ;
+	</select>
+
+	<select id="chazhao4"  resultMap="typeResult">
+		select * from allGoodsType where aId = #{0}  or aId = #{1} or aId=#{2};
+	</select>
+
+
+	<!--<select id="selectGoodsTypeChildrenByParentId" resultMap="typeResult">-->
+		<!--select * from allGoodsType where parent_id = #{aId}-->
+	<!--</select>-->
+
+	<!--<select id="selectByPrimaryKey" resultMap="typeResult">-->
+		<!--select * from allGoodsType where aId = #{aId}-->
+	<!--</select>-->
+
+  
+</mapper>

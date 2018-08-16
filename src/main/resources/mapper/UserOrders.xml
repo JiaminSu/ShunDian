@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.UserOrdersMapper">
+
+	<resultMap type="Orders" id="ordersResult">
+		<id column="order_id" property="order_id" javaType="int" />
+		<result column="order_address" property="order_address" jdbcType="VARCHAR" />
+		<result column="order_goodsName" property="order_goodsName" jdbcType="VARCHAR" />
+		<result column="order_price" property="order_price" javaType="double"/>
+		<result column="order_count" property="order_count" javaType="int"  />
+		<result column="user_id" property="user_id" javaType="int" />
+	</resultMap>
+
+	<!--查询用户订单-->
+
+	<select id="findUserOrders" resultMap="ordersResult" >
+		select * FROM Orders where user_id = #{user_id};
+	</select>
+	<!--删除订单-->
+	<delete id="deleteUserOrders" parameterType="Integer" >
+		DELETE FROM Orders WHERE user_id=#{0} and order_id=#{1}
+	</delete>
+
+  
+</mapper>

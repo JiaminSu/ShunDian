@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="Floor" id="floorResult">
+		<id column="fId" property="floorId" javaType="int" />
+		<result column="fName" property="floorName" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="findFloor" resultMap="floorResult" >
+		select * from Floor where deleteId = 1 and fId  &lt; 8;
+	</select>
+	<select id="findFloorX" resultMap="floorResult" >
+		select * from Floor where deleteId = 1 ;
+	</select>
+	<select id="findNewFloor" resultMap="floorResult" >
+		select * from Floor where deleteId = 1 and fId  &gt; 7;
+	</select>
+	<update id="updatefloor">
+		update Floor SET fName=#{0} where fId=#{1};
+	</update>
+	<update id="deletefloor">
+		update Floor SET deleteId=0 where fId=#{id};
+	</update>
+	<insert id="insertFloor"  parameterType="String" >
+		INSERT INTO Floor(fName,deleteId) VALUES (#{fName},1);
+	</insert>
+	<select id="findFloorFid" resultType="Integer" >
+		select fId from Floor where fName = #{fName} and deleteId=1;
+	</select>
+	<select id="findFloorfName" resultType="String" >
+		select fName from Floor where fId = #{fId} ;
+	</select>
+
+  
+</mapper>

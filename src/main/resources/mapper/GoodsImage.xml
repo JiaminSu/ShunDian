@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="GoodsImage" id="goodsImageResult">
+		<id column="ImageId" property="ImageId" javaType="int" />
+		<result column="imageUrl" property="imageUrl" jdbcType="VARCHAR" />
+		<result column="Goods_id" property="Goods_id" javaType="int" />
+		<result column="Type" property="Type" javaType="int" />
+	</resultMap>
+
+	<!--查找到当前商品中的Type为1的小图-->
+	<select id="findGoodsImage" resultMap="goodsImageResult" >
+		select * from Goods_Image where Goods_id = #{Goods_id} and Type = 1;
+	</select>
+
+	<!--查找到当前商品中的Type为2的大图-->
+	<select id="findGoodsImage1" resultMap="goodsImageResult" >
+		select * from Goods_Image where Goods_id = #{Goods_id} and Type = 2;
+	</select>
+
+  
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GalleryMapper">
+
+	<resultMap type="Lefts" id="findLeftResult2">
+		<id column="leftId" property="leftId" javaType="int" />
+		<result column="leftName" property="leftName" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="findleft2" parameterType="int" resultMap="findLeftResult2" >
+		select * from Lefts where leftId = #{leftId};
+	</select>
+	<select id="finder" resultType="String">
+		select leftName from Lefts where  leftId = 1 or leftId  = 2 ;
+	</select>
+	<select id="findsan" resultType="String">
+		select leftName from Lefts where  leftId = 1 or leftId  = 2 ;
+	</select>
+
+</mapper>

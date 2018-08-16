@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.UserMapper">
+	<resultMap type="User" id="UserResult">
+		<id column="uId" property="uId"  javaType="int"/>
+		<result column="uName" property="uName" jdbcType="VARCHAR"/>
+		<result column="uPassword" property="uPassword" jdbcType="VARCHAR"/>
+		<result column="uPhone" property="uPhone" jdbcType="VARCHAR"/>
+		<result column="xName" property="xName" jdbcType="VARCHAR"/>
+		<result column="gender" property="gender" jdbcType="VARCHAR"/>
+		<result column="birthday" property="birthday" jdbcType="DATE"/>
+		<result column="QQ" property="QQ" jdbcType="VARCHAR"/>
+		<result column="email" property="email" jdbcType="VARCHAR"/>
+		<result column="address" property="address" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<!--查找用户所有信息-->
+	<select id="findUser"  resultMap="UserResult">
+		SELECT * FROM  User where uName=#{uName}
+	</select>
+	<!--//根据用户名查找密码-->
+	<select id="finduPasswordByuName" parameterType="String" resultType="String">
+		SELECT  uPassword FROM  User where uName=#{uName}
+	</select>
+
+	<!--修改个人信息-->
+	<update id="updateUser" parameterType="User" >
+		update User SET uPhone=#{uPhone},xName=#{xName},gender=#{gender},
+		birthday=#{birthday},QQ=#{QQ},email=#{email},address=#{address} where uName=#{uName}
+	</update>
+	<!--修改密码-->
+	<update id="updatePwd" parameterType="String">
+		UPDATE User set uPassword=#{0} where uName=#{1}
+	</update>
+	<select id="finduNameAndPwd" resultMap="UserResult">
+		select * from User where uName=#{uName} and uPassword=#{uPassword}
+	</select>
+	<!--注册-->
+	<select id="finduName" resultMap="UserResult">
+		select * from User where uName=#{uName}
+	</select>
+	<!--注册用户名密码-->
+	<insert id="adduNameAndPwd" parameterType="User">
+		insert into User(uName,uPassword) VALUES (#{uName},#{uPassword})
+	</insert>
+
+</mapper>

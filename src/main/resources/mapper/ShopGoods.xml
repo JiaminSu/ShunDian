@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.ShopGoodsMapper">
+	<!--=================================================-->
+	<resultMap type="ShopGoods" id="findgoodx">
+		<id column="GoodsId" property="GoodsId" javaType="int" />
+		<result column="GoodsName" property="GoodsName" jdbcType="VARCHAR" />
+		<result column="GoodsPrice" property="GoodsPrice" jdbcType="DOUBLE" />
+		<result column="GoodsImageUrl" property="GoodsImageUrl" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="AllfindShopGoodss" resultType="Double" >
+		select count(*) from Goods  where deleteId = 1;
+	</select>
+
+	<select id="findShopGoodss" resultMap="findgoodx" >
+		select * from Goods where  deleteId = 1 limit #{page},20;
+	</select>
+
+
+	<insert id="insertShopGoodss" >
+		insert into Goods(GoodsName,ShopCard,GoodsPrice,GoodsImageUrl,deleteId,gs_id) VALUES (#{0},#{1},#{2},#{3},1,10);
+	</insert>
+	<update id="updateShopGoodss">
+		update Goods SET GoodsName=#{0},ShopCard=#{1},GoodsPrice=#{2} where GoodsId=#{3};
+	</update>
+	<update id="deleteShopGoodss">
+		update Goods SET deleteId = 0 where GoodsId=#{GoodsId};
+	</update>
+
+
+	<select id="huishou" resultMap="findgoodx" >
+		select * from Goods where  deleteId = 0 limit #{page},20;
+	</select>
+	<update id="huanyuan2">
+		update Goods SET deleteId = 1 where GoodsId=#{GoodsId};
+	</update>
+	<!--<update id="deletefloor">-->
+		<!--update Floor SET deleteId=0 where fId=#{id};-->
+	<!--</update>-->
+
+
+	<!--<select id="AllfindByPrice" resultType="Double">-->
+		<!--select count(*) from Goods where GoodsPrice between #{0} and #{1} ;-->
+	<!--</select>-->
+	<!--<select id="findByPrice" resultMap="findgoodsResult">-->
+		<!--select * from Goods where GoodsPrice between #{0} and #{1} limit #{2},45;-->
+	<!--</select>-->
+	<!--<select id="AllByZonHe" resultType="Double">-->
+		<!--select count(*) from Goods order by rand() ;-->
+	<!--</select>-->
+	<!--<select id="ByZonHe" resultMap="findgoodsResult">-->
+		<!--select * from Goods order by rand() limit #{page},45;-->
+	<!--</select>-->
+
+	<!--<select id="AllByJiaGeJiang" resultType="Double">-->
+		<!--select count(*) from Goods order by GoodsPrice desc;-->
+	<!--</select>-->
+	<!--<select id="ByJiaGeJiang" resultMap="findgoodsResult">-->
+		<!--select * from Goods order by GoodsPrice desc limit #{page}, 45;-->
+	<!--</select>-->
+
+	<!--<select id="AllByJiaGeSheng" resultType="Double">-->
+		<!--select count(*) from Goods order by GoodsPrice asc;-->
+	<!--</select>-->
+	<!--<select id="ByJiaGeSheng" resultMap="findgoodsResult">-->
+		<!--select * from Goods order by GoodsPrice asc limit #{page},45;-->
+	<!--</select>-->
+
+	<!--<select id="AllByXiaoLiang" resultType="Double">-->
+		<!--select count(*) from Goods order by hot desc;-->
+	<!--</select>-->
+	<!--<select id="ByXiaoLiang" resultMap="findgoodsResult">-->
+		<!--select * from Goods order by hot desc limit #{page},45 ;-->
+	<!--</select>-->
+
+	<!--<select id="AllByXinPin" resultType="Double">-->
+		<!--select count(*) from Goods order by hot asc;-->
+	<!--</select>-->
+	<!--<select id="ByXinPin" resultMap="findgoodsResult">-->
+		<!--select * from Goods order by hot asc limit #{page},45 ;-->
+	<!--</select>-->
+
+	<!--<select id="AllByLike" resultType="Double">-->
+		<!--select count(*) from Goods where  GoodsName LIKE #{like};-->
+	<!--</select>-->
+	<!--<select id="ByLike" resultMap="findgoodsResult">-->
+		<!--select * from Goods where  GoodsName LIKE #{0} limit #{1},45 ;-->
+	<!--</select>-->
+
+</mapper>

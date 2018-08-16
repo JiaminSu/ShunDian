@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.ShouDiZhiMapper">
+
+	<resultMap id="ShouDiZhiResult" type="ShouDiZhi">
+		<id column="sId" property="sId" javaType="Integer"></id>
+		<result column="sName" property="sName" jdbcType="VARCHAR"></result>
+		<result column="sArea" property="sArea" jdbcType="VARCHAR"></result>
+		<result column="sAddress" property="sAddress" jdbcType="VARCHAR"></result>
+		<result column="sZip" property="sZip" jdbcType="VARCHAR"></result>
+		<result column="sPhone" property="sPhone" jdbcType="VARCHAR"></result>
+		<result column="user_id" property="user_id" jdbcType="INTEGER"></result>
+	</resultMap>
+		<!--根据用户的id查找收获地址-->
+		<select id="findShouDiZhi" resultMap="ShouDiZhiResult" parameterType="Integer">
+			SELECT  * FROM  Address where  user_id=#{uId}
+		</select>
+
+		<!--根据地址主键，查找当前用户勾选的收货地址-->
+		<select id="findShouDiZhiBysId" resultMap="ShouDiZhiResult">
+			SELECT  * FROM  Address where  sId=#{0} and user_id=#{1};
+		</select>
+
+		<!--添加收获地址-->
+		<!--需要传过来姓名等信息user_id自己从session中取-->
+		<insert id="addShouDiZhi" >
+			INSERT INTO Address(sName,sArea,sAddress,sZip,sPhone,user_id) VALUES (#{0},#{1},#{2},#{3},#{4},#{5})
+		</insert>
+
+		<!--删除收货地址-->
+		<delete id="deleteShouDiZhi" parameterType="Integer">
+			DELETE  from Address WHERE sId=#{0} and user_id=#{1}
+		</delete>
+
+		<!--根据地址主键查找本条记录-->
+		<select id="findAddressBysId" resultMap="ShouDiZhiResult">
+			SELECT * FROM Address where sId = #{sId};
+		</select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GalleryMapper">
+
+	<resultMap type="GoodSmallImage" id="Result">
+		<id column="gsId" property="gsId" javaType="int" />
+		<result column="smallUrl1" property="smallUrl1" jdbcType="VARCHAR" />
+		<result column="smallUrl2" property="smallUrl2" jdbcType="VARCHAR" />
+		<result column="smallUrl3" property="smallUrl3" jdbcType="VARCHAR" />
+		<result column="smallUrl4" property="smallUrl4" jdbcType="VARCHAR" />
+		<result column="smallUrl5" property="smallUrl5" jdbcType="VARCHAR" />
+		<result column="gs_id" property="gs_id"  javaType="int"/>
+	</resultMap>
+	 <select id="SmallImage" parameterType="int" resultMap="Result">
+        select * from GoodSmallImage where  gs_id = #{gs_id};
+    </select>
+  
+</mapper>

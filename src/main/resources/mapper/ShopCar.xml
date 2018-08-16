@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="ShopCar" id="shopCarResult">
+		<id column="shopId" property="shopId" javaType="int" />
+		<result column="goods_id" property="goods_id" javaType="int" />
+		<result column="goods_name" property="goods_name" jdbcType="VARCHAR" />
+		<result column="goods_price" property="goods_price" javaType="double" />
+		<result column="goods_count" property="goods_count" javaType="int" />
+		<result column="goods_sum" property="goods_sum" javaType="double" />
+		<result column="goods_url" property="goods_url" jdbcType="VARCHAR" />
+		<result column="delete_id" property="delete_id" javaType="int" />
+	</resultMap>
+
+	<!--查找当前goods_id是否存在于ShopCar表中-->
+	<select id="findShopCargoods_id" resultMap="shopCarResult" >
+		select * from ShopCar where goods_id = #{goods_id};
+	</select>
+
+	<!--添加商品-->
+	<select id="updateShopCar" resultMap="shopCarResult" >
+		insert into ShopCar (goods_id,goods_name,goods_price,goods_count,goods_sum,goods_url) VALUES(#{0},#{1},#{2},#{3},#{4},#{5});
+	</select>
+	<!--跟新商品-->
+	<select id="updateShopCar1" resultMap="shopCarResult" >
+		update ShopCar set goods_count = #{0},goods_sum = #{1} where goods_id = #{2}
+	</select>
+
+	<!--查找ShopCar表中的所有数据-->
+	<select id="findShopCar" resultMap="shopCarResult" >
+		select * from ShopCar;
+	</select>
+
+	<!--删除ShopCar表中的id-->
+	<select id="deleteShopCar" resultMap="shopCarResult" >
+		DELETE FROM ShopCar where goods_id = #{0}
+	</select>
+
+	<!--删除ShopCar表中的数据-->
+	<select id="deleteShopCarAll" resultMap="shopCarResult" >
+		DELETE FROM ShopCar;
+	</select>
+
+</mapper>

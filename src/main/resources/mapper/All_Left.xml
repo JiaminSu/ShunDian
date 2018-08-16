@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GalleryMapper">
+
+	<resultMap type="All_Left" id="findLeftResult1">
+		<id column="all_id" property="all_id" javaType="int" />
+		<result column="left_id" property="left_id" javaType="int" />
+	</resultMap>
+	<select id="findleft1" resultMap="findLeftResult1" >
+		select * from All_Left where all_id = #{all_id};
+	</select>
+
+
+
+  
+</mapper>

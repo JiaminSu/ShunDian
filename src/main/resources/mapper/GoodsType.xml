@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="GoodsType" id="typeResult">
+		<id column="aId" property="aId" javaType="int" />
+		<result column="aName" property="aName" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" javaType="int" />
+		<result column="type" property="type" javaType="int" />
+	</resultMap>
+	<select id="find9Goods3Type" resultMap="typeResult" >
+		select * from allGoodsType where type = 3 limit 0,9;
+	</select>
+
+	<select id="findGoods1Type" resultMap="typeResult" >
+		select * from allGoodsType where type = 1;
+	</select>
+
+	<select id="findGoodsType" resultMap="typeResult" >
+		select * from allGoodsType where aId = #{aId};
+	</select>
+
+	<select id="findfenlei" parameterType="int" resultMap="typeResult">
+		select * from allGoodsType where parent_id = #{aId};
+	</select>
+
+
+	<!--<select id="selectGoodsTypeChildrenByParentId" resultMap="typeResult">-->
+		<!--select * from allGoodsType where parent_id = #{aId}-->
+	<!--</select>-->
+
+	<!--<select id="selectByPrimaryKey" resultMap="typeResult">-->
+		<!--select * from allGoodsType where aId = #{aId}-->
+	<!--</select>-->
+
+  
+</mapper>

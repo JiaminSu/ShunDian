@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="History" id="history">
+		<id column="hId" property="hId" javaType="int" />
+		<result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+		<result column="goodsImage" property="goodsImage" jdbcType="VARCHAR" />
+		<result column="goodsPrice" property="goodsPrice" javaType="double" />
+		<result column="user_name" property="user_name" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="insert1" >
+		INSERT INTO History(user_name,goodsName,goodsImage,goodsPrice) VALUES (#{0},#{1},#{2},#{3});
+	</insert>
+	<select id="findHistory" resultMap="history">
+		SELECT  * from History WHERE user_name = #{username};
+	</select>
+	<select id="findNull" resultType="int">
+		select count(*) from History where goodsName = #{goodsName};
+	</select>
+
+
+
+  
+</mapper>

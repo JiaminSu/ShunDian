@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GalleryMapper">
+	<!--=================================================-->
+	<resultMap type="Gallery1" id="findgoodsResult">
+		<id column="GoodsId" property="gId" javaType="int" />
+		<result column="GoodsName" property="gName" jdbcType="VARCHAR" />
+		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE" />
+		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR" />
+		<result column="gs_id" property="gs_id" javaType="int" />
+		<result column="All_id" property="All_id" javaType="int" />
+	</resultMap>
+
+	<select id="AllfindGoodss" resultType="Double" >
+		select count(*) from Goods where All_id = #{id} ;
+	</select>
+
+	<select id="findGoodss" resultMap="findgoodsResult" >
+		select * from Goods where All_id = #{0} order by rand() limit #{1},45;
+	</select>
+
+
+	<select id="AllfindByPrice" resultType="Double">
+		select count(*) from Goods where GoodsPrice between #{0} and #{1} ;
+	</select>
+	<select id="findByPrice" resultMap="findgoodsResult">
+		select * from Goods where GoodsPrice between #{0} and #{1} limit #{2},45;
+	</select>
+	<select id="AllByZonHe" resultType="Double">
+		select count(*) from Goods order by rand() ;
+	</select>
+	<select id="ByZonHe" resultMap="findgoodsResult">
+		select * from Goods order by rand() limit #{page},45;
+	</select>
+
+	<select id="AllByJiaGeJiang" resultType="Double">
+		select count(*) from Goods order by GoodsPrice desc;
+	</select>
+	<select id="ByJiaGeJiang" resultMap="findgoodsResult">
+		select * from Goods order by GoodsPrice desc limit #{page}, 45;
+	</select>
+
+	<select id="AllByJiaGeSheng" resultType="Double">
+		select count(*) from Goods order by GoodsPrice asc;
+	</select>
+	<select id="ByJiaGeSheng" resultMap="findgoodsResult">
+		select * from Goods order by GoodsPrice asc limit #{page},45;
+	</select>
+
+	<select id="AllByXiaoLiang" resultType="Double">
+		select count(*) from Goods order by hot desc;
+	</select>
+	<select id="ByXiaoLiang" resultMap="findgoodsResult">
+		select * from Goods order by hot desc limit #{page},45 ;
+	</select>
+
+	<select id="AllByXinPin" resultType="Double">
+		select count(*) from Goods order by hot asc;
+	</select>
+	<select id="ByXinPin" resultMap="findgoodsResult">
+		select * from Goods order by hot asc limit #{page},45 ;
+	</select>
+
+	<select id="AllByLike" resultType="Double">
+		select count(*) from Goods where  GoodsName LIKE #{like};
+	</select>
+	<select id="ByLike" resultMap="findgoodsResult">
+		select * from Goods where  GoodsName LIKE #{0} limit #{1},45 ;
+	</select>
+
+</mapper>

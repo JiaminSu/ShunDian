@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.CollectionMapper">
+
+	<resultMap id="shouCangResult" type="Goods">
+		<id column="GoodsId" property="gId" javaType="integer"></id>
+		<result column="GoodsName" property="gName" jdbcType="VARCHAR"></result>
+		<result column="GoodsPrice" property="gPrice" jdbcType="DOUBLE"></result>
+		<result column="GoodsImageUrl" property="gUrl" jdbcType="VARCHAR"></result>
+	</resultMap>
+		<!--把用户的id传过来查找收藏-->
+		<select id="findCollection" resultMap="shouCangResult" >
+			SELECT GoodsId,GoodsName,GoodsPrice ,GoodsImageUrl from Goods where  GoodsId in (SELECT goods_id from Collection where user_id =#{uId})
+		</select>
+
+		<!--查找有没有收藏过商品-->
+		<select id="finduser_id" resultType="Integer" parameterType="Integer">
+			SELECT sId FROM Collection WHERE goods_id=#{0} and user_id=#{1}
+		</select>
+		<!--添加收藏-->
+		<insert id="addCollGoods" parameterType="Integer" >
+			INSERT INTO Collection(user_id,goods_id) VALUES(#{0},#{1})
+		</insert>
+		<!--删除收藏-->
+		<delete id="deleteCollection">
+			DELETE FROM Collection WHERE goods_id IN
+			 <foreach collection="goods_id" item="good_id" separator="," open="(" close=")">
+				 #{good_id}
+			 </foreach>
+			and user_id = #{user_id}
+		</delete>
+	<delete id="deleteCollection1">
+		DELETE FROM Collection WHERE goods_id =#{0} and user_id = #{1}
+	</delete>
+</mapper>

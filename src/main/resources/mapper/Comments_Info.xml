@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+	<resultMap type="Comments" id="commentsResult">
+		<id column="cId" property="cId" javaType="int"></id>
+		<result column="goods_id" property="goods_id" javaType="int"></result>
+		<result column="user_id" property="user_id" javaType="int"></result>
+		<result column="content" property="content" jdbcType="VARCHAR"></result>
+	</resultMap>
+
+	<select id="findComments" resultMap="commentsResult">
+		select * from Comment c where c.goods_id = #{All_id};
+	</select>
+
+</mapper>

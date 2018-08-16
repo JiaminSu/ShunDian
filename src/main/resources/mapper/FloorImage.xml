@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="FloorImage" id="floorsResult">
+		<id column="floorImageId" property="fId" javaType="int" />
+		<result column="floorImageUrl" property="fUrl" jdbcType="VARCHAR" />
+		<result column="floor_id" property="floor_id" javaType="int" />
+	</resultMap>
+
+	<select id="findFloorImage" resultMap="floorsResult" >
+		select * from FloorImage where floor_id  &lt; 8;
+	</select>
+
+
+
+	<insert id="insertFloorImage"  >
+		INSERT INTO FloorImage(floorImageUrl,floor_id) VALUES (#{0},#{1});
+	</insert>
+	<select id="findFloorImageForfId" resultMap="floorsResult" >
+		select * from FloorImage WHERE  floor_id=#{floor_id};
+	</select>
+
+  
+</mapper>

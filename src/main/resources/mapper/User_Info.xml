@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+	<resultMap type="User_Info" id="UserResult">
+		<id column="uId" property="uId"  javaType="int"/>
+		<result column="uName" property="uName" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<!--查找用户所有信息-->
+	<select id="findUser_Info" resultMap="UserResult">
+		select * from User where uId = #{uId};
+	</select>
+
+</mapper>

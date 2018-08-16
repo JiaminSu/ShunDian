@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+
+	<resultMap type="Orders" id="ordersResult">
+		<id column="orderId" property="orderId" javaType="int" />
+		<result column="order_time" property="order_time" jdbcType="TIMESTAMP"/>
+		<result column="order_state" property="order_state" javaType="int" />
+		<result column="address_sId" property="address_sId" javaType="int"/>
+		<result column="totalMoney" property="totalMoney" javaType="Double"  />
+		<result column="user_id" property="user_id" javaType="int"  />
+		<result column="state" property="state" javaType="int"  />
+	</resultMap>
+
+	<insert id="addOrders">
+		insert into Orders (order_time,address_sId,totalMoney,user_id) VALUES(#{0},#{1},#{2},#{3});
+	</insert>
+
+
+	<!--&lt;!&ndash;查找当前order表中最大的主键&ndash;&gt;-->
+	<select id="findMaxOrders" resultType="int">
+		select max(orderId) FROM Orders where order_state = 0;
+	</select>
+
+	<!--查询当前订单记录-->
+	<select id="findOrdersByMaxId" resultMap="ordersResult">
+		select * FROM Orders where orderId = #{orderId};
+	</select>
+
+	<!--查询当前用户的所有订单-->
+	<select id="findAllOrdersByUser_id" resultMap="ordersResult">
+		select * FROM Orders where user_id = #{user_id} and order_state = 0;
+	</select>
+
+	<!--修改当前订单的状态-->
+	<update id="updateState">
+		update Orders set state = #{0} where orderId = #{1};
+	</update>
+
+	<!--&lt;!&ndash;<select id="addOrders" resultMap="ordersResult" >&ndash;&gt;-->
+		<!--&lt;!&ndash;insert into Orders (order_address,order_goodsName,order_price,order_count,user_id) VALUES(#{0},#{1},#{2},#{3},#{4});&ndash;&gt;-->
+	<!--&lt;!&ndash;</select>&ndash;&gt;-->
+
+	<!--<select id="findOrders" resultMap="ordersResult" >-->
+		<!--select order_id FROM Orders where user_id = #{user_id};-->
+	<!--</select>-->
+
+
+	<!--查询所有的订单-->
+	<select id="findAllOrders" resultMap="ordersResult" >
+		select * FROM Orders where order_state = 0;
+	</select>
+
+	<!--查询当前页的订单-->
+	<select id="findOrdersByPage" resultMap="ordersResult" >
+		select * FROM Orders where order_state = 0 limit #{0},6;
+	</select>
+
+	<!--&lt;!&ndash;模糊查询订单号&ndash;&gt;-->
+	<select id="findOrdersByOrderId" resultMap="ordersResult" >
+		select * FROM Orders where orderId like #{num} and order_state = 0;
+	</select>
+
+	<!--逻辑删除订单-->
+	<update id="updateOrderState">
+		update Orders set order_state = 1 where orderId = #{orderId};
+	</update>
+  
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lanou.dao.GoodsTypeMapper">
+	<resultMap type="DiZhi_Info" id="diZhiResult" >
+		<id column="cityid" property="cityid" javaType="int"></id>
+		<result column="cityname" property="cityname" jdbcType="VARCHAR"></result>
+		<result column="parentid" property="parentid" javaType="int"></result>
+	</resultMap>
+
+
+	<!--先查找当前主键cityid的对象-->
+	<select id="findDiZhicityid" resultMap="diZhiResult">
+		select * from DiZhi where cityid = #{cityid};
+	</select>
+
+	<select id="selectDiZhiChildrenByParentId" resultMap="diZhiResult">
+		select * from DiZhi where parentid = #{cityid};
+	</select>
+
+</mapper>
